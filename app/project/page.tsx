@@ -8,7 +8,6 @@ export default function ProjectPage() {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [projects, setProjects] = useState<any[]>([]);
 
-  // 🔥 ambil data dari Supabase
   useEffect(() => {
     const fetchProjects = async () => {
       const { data, error } = await supabase
@@ -16,19 +15,17 @@ export default function ProjectPage() {
         .select('*');
 
       if (error) {
-        console.error('Error:', error);
+        console.error(error);
       } else {
-        setProjects(data);
+        setProjects(data || []);
       }
     };
 
     fetchProjects();
   }, []);
 
-  // 🔥 kategori otomatis dari database
   const categories = ['all', ...new Set(projects.map(p => p.category))];
 
-  // 🔥 filter otomatis
   const filteredProjects =
     activeFilter === 'all'
       ? projects
@@ -39,12 +36,15 @@ export default function ProjectPage() {
       <Navbar />
 
       <div className="pt-20 px-6 max-w-6xl mx-auto">
-        <h1 className="text-5xl font-bold tracking-tighter mb-3">My Projects</h1>
+        <h1 className="text-5xl font-bold tracking-tighter mb-3">
+          My Projects
+        </h1>
+
         <p className="text-zinc-400 text-lg mb-12">
           Proyek Web & Android yang telah saya kerjakan
         </p>
 
-        {/* 🔥 FILTER DINAMIS */}
+        {/* FILTER */}
         <div className="flex gap-3 mb-12 flex-wrap">
           {categories.map((cat) => (
             <button
@@ -67,12 +67,12 @@ export default function ProjectPage() {
           ))}
         </div>
 
-        {/* 🔥 PROJECT GRID */}
+        {/* PROJECT GRID */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden hover:border-cyan-400 group"
+              className="bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden hover:border-cyan-400"
             >
               <img
                 src={project.image}
@@ -107,6 +107,7 @@ export default function ProjectPage() {
                 <a
                   href={project.github}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="block text-center border border-cyan-400 hover:bg-cyan-400 hover:text-zinc-950 font-medium py-3.5 rounded-3xl text-sm"
                 >
                   Lihat di GitHub →
@@ -116,7 +117,7 @@ export default function ProjectPage() {
           ))}
         </div>
 
-        {/* EMPTY */}
+        {/* EMPTY STATE */}
         {filteredProjects.length === 0 && (
           <p className="text-center text-zinc-400 py-20">
             Belum ada project.
