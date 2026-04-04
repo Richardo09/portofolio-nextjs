@@ -13,8 +13,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Richardo Bram Barus - Portofolio",
-  description: "Website portofolio Richardo Bram Barus",
+  title: "Richardo Bram Barus - Portofolio Resmi",
+  description:
+    "Portofolio resmi Richardo Bram Barus. Mahasiswa Teknik Informatika, Web Developer dan Android Developer.",
+
+  keywords: [
+    "Richardo",
+    "Richardo Bram",
+    "Richardo Bram Barus",
+    "Portofolio Richardo",
+    "Richardo Developer",
+  ],
+
+  authors: [{ name: "Richardo Bram Barus" }],
+  creator: "Richardo Bram Barus",
+
+  metadataBase: new URL("https://richardobram.vercel.app"),
+
+  openGraph: {
+    title: "Richardo Bram Barus",
+    description:
+      "Website portofolio resmi Richardo Bram Barus - Web & Android Developer",
+    url: "https://richardobram.vercel.app",
+    siteName: "Richardo Bram Barus",
+    locale: "id_ID",
+    type: "website",
+  },
+
+  verification: {
+    google: "qClfFCEolyeSbIRuXKjJxTsOx3RvncQfb67DOonBliU",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +55,9 @@ export default function RootLayout({
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      <body className="min-h-screen">
+        {children}
+      </body>
     </html>
   );
 }
