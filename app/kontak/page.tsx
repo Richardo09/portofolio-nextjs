@@ -28,7 +28,7 @@ export default function KontakPage() {
 
           {/* WhatsApp */}
           <a 
-            href="https://wa.me/623870211278" 
+            href="https://wa.me/6283870211278" 
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-zinc-900 border border-zinc-700 hover:border-green-500 rounded-3xl p-8 flex flex-col items-center gap-4 transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(34,197,94,0.3)]"
