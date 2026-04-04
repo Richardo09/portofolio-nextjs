@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 export default function ProjectPage() {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [projects, setProjects] = useState<any[]>([]);
+  const [expandedId, setExpandedId] = useState<number | null>(null); 
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -89,9 +90,27 @@ export default function ProjectPage() {
                   {project.title}
                 </h3>
 
-                <p className="text-zinc-400 text-sm mb-6 line-clamp-3">
+                {/* DESKRIPSI (DIPERBAIKI) */}
+                <p
+                  className={`text-zinc-400 text-sm mb-3 ${
+                    expandedId === project.id ? '' : 'line-clamp-3'
+                  }`}
+                >
                   {project.description}
                 </p>
+
+                <button
+                  onClick={() =>
+                    setExpandedId(
+                      expandedId === project.id ? null : project.id
+                    )
+                  }
+                  className="text-cyan-400 text-xs mb-4"
+                >
+                  {expandedId === project.id
+                    ? 'Tutup'
+                    : 'Lihat selengkapnya'}
+                </button>
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech?.map((tech: string, i: number) => (
