@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Richardo Bram Barus - Portofolio Resmi",
+  title: "Richardo Portofolio",
   description:
     "Portofolio resmi Richardo Bram Barus. Mahasiswa Teknik Informatika, Web Developer dan Android Developer.",
 
@@ -38,6 +38,10 @@ export const metadata: Metadata = {
     siteName: "Richardo Bram Barus",
     locale: "id_ID",
     type: "website",
+  },
+
+  icons: {
+    icon: "/logo.png",
   },
 
   verification: {
