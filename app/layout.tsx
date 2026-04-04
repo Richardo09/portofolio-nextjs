@@ -14,27 +14,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-/* Metadata untuk mengatur title, deskripsi, dan icon website */
+/* Metadata (SEO + Verifikasi Google) */
 export const metadata: Metadata = {
-  title: "Richardo Bram Barus - Portofolio", // Judul tab browser
-  description: "Website portofolio Richardo Bram Barus", // Deskripsi website
+  title: "Richardo Bram Barus - Portofolio",
+  description: "Website portofolio Richardo Bram Barus",
   icons: {
-    icon: "/logo.png", // Mengambil favicon dari folder public
+    icon: "/logo.png",
+  },
+  verification: {
+    google: "qClfFCEolyeSbIRuXKjJxTsOx3RvncQfb67DOonBliU",
   },
 };
 
-/* Root layout utama yang membungkus seluruh halaman */
+/* Root layout */
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      {/* Body utama dengan flex layout */}
       <body className="min-h-full flex flex-col">
         {children}
       </body>
