@@ -28,7 +28,7 @@ export default function KontakPage() {
 
           {/* WhatsApp */}
           <a 
-            href="https://wa.me/62812345678" 
+            href="https://wa.me/623870211278" 
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-zinc-900 border border-zinc-700 hover:border-green-500 rounded-3xl p-8 flex flex-col items-center gap-4 transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(34,197,94,0.3)]"
@@ -56,7 +56,7 @@ export default function KontakPage() {
 
           {/* Telegram */}
           <a 
-            href="https://t.me/example" 
+            href="https://t.me/Ardobars" 
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-zinc-900 border border-zinc-700 hover:border-sky-400 rounded-3xl p-8 flex flex-col items-center gap-4 transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(56,189,248,0.3)]"
@@ -84,7 +84,7 @@ export default function KontakPage() {
 
           {/* LinkedIn */}
           <a 
-            href="https://www.linkedin.com/in/example" 
+            href="https://www.linkedin.com/in/richardo-bram-barus-b7a44b398/" 
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-zinc-900 border border-zinc-700 hover:border-blue-500 rounded-3xl p-8 flex flex-col items-center gap-4 transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(59,130,246,0.3)]"
