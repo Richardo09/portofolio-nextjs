@@ -13,17 +13,15 @@ export default function KegiatanPage() {
 
   const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 
+  // ambil data dari Supabase (FIX DI SINI)
   useEffect(() => {
     const fetchActivities = async () => {
       const { data, error } = await supabase
         .from('activities')
-        .select('*');
+        .select('*')
+        .throwOnError();
 
-      if (error) {
-        console.error(error);
-      } else {
-        setActivities(data);
-      }
+      setActivities(data || []);
     };
 
     fetchActivities();
@@ -159,11 +157,14 @@ export default function KegiatanPage() {
                   <h4 className="text-2xl font-medium mb-3">{activity.title}</h4>
                   <p className="text-cyan-400 mb-5">{activity.date}</p>
 
-                  <img 
-                    src={activity.image} 
-                    alt={activity.title}
-                    className="w-full rounded-2xl mb-6"
-                  />
+                  {activity.images?.map((img: string, index: number) => (
+  <img
+    key={index}
+    src={img}
+    alt={activity.title}
+    className="w-full max-h-40 object-contain rounded-xl mb-4"
+  />
+))}
 
                   <p className="text-zinc-300">
                     {activity.description}
