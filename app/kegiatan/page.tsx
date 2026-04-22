@@ -13,7 +13,6 @@ export default function KegiatanPage() {
 
   const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 
-  //  ambil data dari Supabase
   useEffect(() => {
     const fetchActivities = async () => {
       const { data, error } = await supabase
@@ -30,11 +29,10 @@ export default function KegiatanPage() {
     fetchActivities();
   }, []);
 
-  //  convert ke format kalender
   const activitiesData: Record<string, any[]> = {};
 
   activities.forEach((item) => {
-    const dateKey = item.date; // format: YYYY-MM-DD
+    const dateKey = item.date;
 
     if (!activitiesData[dateKey]) {
       activitiesData[dateKey] = [];
@@ -104,7 +102,7 @@ export default function KegiatanPage() {
           <span className="text-2xl">{day}</span>
           {hasActivity && (
             <span className="absolute bottom-2 text-[10px] bg-cyan-400 text-zinc-950 px-2 py-0.5 rounded-full font-medium">
-              EVENT
+              LIHAT KEGIATAN
             </span>
           )}
         </div>
@@ -147,7 +145,6 @@ export default function KegiatanPage() {
         </div>
       </div>
 
-      {/* Modal */}
       {showModal && selectedActivities.length > 0 && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
           <div className="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-auto">
