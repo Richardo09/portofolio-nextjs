@@ -31,6 +31,7 @@ const staggerContainer = {
 export default function SertifikatPage() {
   const [activeFilter, setActiveFilter] = useState<string>('Semua');
   const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [expandedId, setExpandedId] = useState<number | string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -153,7 +154,7 @@ export default function SertifikatPage() {
               {[1, 2, 3].map((item) => (
                 <div
                   key={item}
-                  className="h-112 animate-pulse rounded-4xl border border-zinc-800 bg-zinc-900/70"
+                  className="h-120 animate-pulse rounded-4xl border border-zinc-800 bg-zinc-900/70"
                 />
               ))}
             </div>
@@ -167,55 +168,74 @@ export default function SertifikatPage() {
               animate="show"
               className="grid items-stretch gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
-              {filteredCertificates.map((cert) => (
-                <motion.article
-                  key={cert.id}
-                  variants={fadeUp}
-                  transition={{ duration: 0.55, ease: 'easeOut' }}
-                  whileHover={{ y: -8 }}
-                  className="group flex h-full min-h-112 flex-col overflow-hidden rounded-4xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/40"
-                >
-                  <div className="mb-6 flex items-start justify-between gap-4">
-                    <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">
-                      {cert.category}
-                    </span>
+              {filteredCertificates.map((cert) => {
+                const isExpanded = expandedId === cert.id;
 
-                    <span className="rounded-full border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-xs font-semibold text-zinc-400">
-                      {cert.date}
-                    </span>
-                  </div>
-
-                  <div className="mb-6 grid h-20 w-20 place-items-center rounded-3xl border border-cyan-400/20 bg-cyan-400/10 text-4xl shadow-lg shadow-cyan-500/5 transition-transform group-hover:rotate-6 group-hover:scale-105">
-                    📄
-                  </div>
-
-                  <h3 className="mb-5 line-clamp-3 min-h-24 text-2xl font-bold leading-tight text-white transition-colors group-hover:text-cyan-300">
-                    {cert.title}
-                  </h3>
-
-                  <div className="mb-6 rounded-3xl border border-zinc-800 bg-zinc-950/40 p-5">
-                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500">
-                      Keterangan
-                    </p>
-                    <p className="line-clamp-2 min-h-12 text-sm leading-relaxed text-zinc-300">
-                      {cert.issuer}
-                    </p>
-                  </div>
-
-                  <a
-                    href={cert.pdf || '#'}
-                    target={cert.pdf ? '_blank' : undefined}
-                    rel={cert.pdf ? 'noopener noreferrer' : undefined}
-                    className={`mt-auto block rounded-2xl py-3.5 text-center text-sm font-bold transition-all ${
-                      cert.pdf
-                        ? 'border border-cyan-400/70 text-cyan-300 hover:-translate-y-1 hover:bg-cyan-400 hover:text-zinc-950 hover:shadow-lg hover:shadow-cyan-500/20'
-                        : 'cursor-not-allowed border border-zinc-700 text-zinc-500'
-                    }`}
+                return (
+                  <motion.article
+                    key={cert.id}
+                    variants={fadeUp}
+                    transition={{ duration: 0.55, ease: 'easeOut' }}
+                    whileHover={{ y: -8 }}
+                    className="group flex h-full min-h-120 flex-col overflow-hidden rounded-4xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/40"
                   >
-                    {cert.pdf ? 'Buka Sertifikat PDF ↗' : 'PDF belum tersedia'}
-                  </a>
-                </motion.article>
-              ))}
+                    <div className="mb-6 flex items-start justify-between gap-4">
+                      <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">
+                        {cert.category}
+                      </span>
+
+                      <span className="rounded-full border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-xs font-semibold text-zinc-400">
+                        {cert.date}
+                      </span>
+                    </div>
+
+                    <div className="mb-6 grid h-20 w-20 place-items-center rounded-3xl border border-cyan-400/20 bg-cyan-400/10 text-4xl shadow-lg shadow-cyan-500/5 transition-transform group-hover:rotate-6 group-hover:scale-105">
+                      📄
+                    </div>
+
+                    <h3 className="mb-5 line-clamp-3 min-h-24 text-2xl font-bold leading-tight text-white transition-colors group-hover:text-cyan-300">
+                      {cert.title}
+                    </h3>
+
+                    <div className="mb-4 rounded-3xl border border-zinc-800 bg-zinc-950/40 p-5">
+                      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500">
+                        Keterangan
+                      </p>
+
+                      <div className="h-20 overflow-hidden">
+                        <p
+                          className={`text-sm leading-relaxed text-zinc-300 ${
+                            isExpanded ? 'max-h-20 overflow-y-auto pr-2' : 'line-clamp-2'
+                          }`}
+                        >
+                          {cert.issuer}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setExpandedId(isExpanded ? null : cert.id)}
+                      className="mb-6 w-fit text-sm font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
+                    >
+                      {isExpanded ? 'Tutup' : 'Lihat selengkapnya'}
+                    </button>
+
+                    <a
+                      href={cert.pdf || '#'}
+                      target={cert.pdf ? '_blank' : undefined}
+                      rel={cert.pdf ? 'noopener noreferrer' : undefined}
+                      className={`mt-auto block rounded-2xl py-3.5 text-center text-sm font-bold transition-all ${
+                        cert.pdf
+                          ? 'border border-cyan-400/70 text-cyan-300 hover:-translate-y-1 hover:bg-cyan-400 hover:text-zinc-950 hover:shadow-lg hover:shadow-cyan-500/20'
+                          : 'cursor-not-allowed border border-zinc-700 text-zinc-500'
+                      }`}
+                    >
+                      {cert.pdf ? 'Buka Sertifikat PDF ↗' : 'PDF belum tersedia'}
+                    </a>
+                  </motion.article>
+                );
+              })}
             </motion.div>
           )}
 
