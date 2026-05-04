@@ -51,13 +51,27 @@ const educationData = [
   },
 ];
 
+const profileHighlights = [
+  {
+    value: 'Web',
+    label: 'Development',
+  },
+  {
+    value: 'Android',
+    label: 'Project',
+  },
+  {
+    value: 'Team',
+    label: 'Collaboration',
+  },
+];
 
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-zinc-950 text-white">
       <Navbar />
 
-      {/* Background Decoration */}
+      {/* Fungsi background */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <motion.div
           animate={{
@@ -80,10 +94,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_35%),linear-gradient(to_bottom,rgba(9,9,11,0.15),#09090b)]" />
       </div>
 
-      {/* Hero Section */}
+      {/* Fungsi hero */}
       <section id="hero" className="relative px-6 py-16 md:py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-14 md:grid-cols-2">
-          {/* Kiri: Teks */}
+          {/* Fungsi teks hero */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -131,6 +145,36 @@ export default function Home() {
               Aktif dalam kegiatan organisasi, terbiasa bekerja secara tim, dan memiliki pengalaman kerja lapangan di lingkungan pemerintahan.
             </motion.p>
 
+            {/* Fungsi card skill */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="mt-8 grid max-w-xl grid-cols-3 gap-3 perspective-distant"
+            >
+              {profileHighlights.map((item, index) => (
+                <motion.div
+                  key={item.value}
+                  initial={{ opacity: 0, rotateX: 28, y: 24 }}
+                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                  transition={{ duration: 0.65, delay: 0.35 + index * 0.12, ease: 'easeOut' }}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.05,
+                    rotateX: 14,
+                    rotateY: index === 1 ? 0 : index === 0 ? -14 : 14,
+                  }}
+                  className="group relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/75 p-4 shadow-2xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/50"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 via-transparent to-blue-500/5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <div className="relative translate-z-6">
+                    <div className="text-lg font-black text-cyan-300 md:text-xl">{item.value}</div>
+                    <div className="mt-1 text-xs text-zinc-400 md:text-sm">{item.label}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -145,7 +189,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Kanan: Foto Profil */}
+          {/* Fungsi foto profil */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
@@ -154,12 +198,9 @@ export default function Home() {
             className="flex justify-center md:justify-end"
           >
             <div className="relative">
-              <motion.div
-                animate={{ y: [0, -14, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-10"
-              >
-                <div className="absolute -inset-4 rounded-[3.5rem] bg-linear-to-br from-cyan-400/40 via-blue-500/10 to-transparent blur-2xl" />
+              <div className="absolute -inset-4 rounded-[3.5rem] bg-linear-to-br from-cyan-400/40 via-blue-500/10 to-transparent blur-2xl" />
+
+              <div className="relative z-10">
                 <div className="relative h-80 w-80 overflow-hidden rounded-[3rem] border border-cyan-400/20 bg-zinc-900 p-3 shadow-2xl shadow-cyan-500/10 md:h-96 md:w-96">
                   <div className="h-full w-full overflow-hidden rounded-[2.4rem] border border-zinc-800">
                     <Image
@@ -168,19 +209,11 @@ export default function Home() {
                       width={500}
                       height={500}
                       priority
-                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                 </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
-                className="absolute -right-4 -top-4 z-20 grid h-20 w-20 place-items-center rounded-full border border-cyan-400/30 bg-zinc-950/80 text-center text-xs font-semibold text-cyan-300 shadow-xl shadow-cyan-500/10 backdrop-blur"
-              >
-                TI
-              </motion.div>
+              </div>
 
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -203,7 +236,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Data Diri Section */}
+      {/* Fungsi data diri */}
       <section id="about" className="relative px-6 pb-24 pt-12 md:pt-20">
         <div className="mx-auto max-w-6xl">
           <motion.div
@@ -229,20 +262,23 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="grid gap-6 md:grid-cols-3"
+            className="grid gap-6 md:grid-cols-3 perspective-[1400px]"
           >
-            {/* Riwayat Pendidikan */}
+            {/* Fungsi riwayat pendidikan */}
             <motion.article
               variants={fadeUp}
               transition={{ duration: 0.65, ease: 'easeOut' }}
-              whileHover={{ y: -8 }}
-              className="group rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-xl shadow-black/20 backdrop-blur transition-colors hover:border-cyan-400/40"
+              whileHover={{ y: -12, scale: 1.02, rotateX: 8, rotateY: -8 }}
+              className="group relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-2xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/50"
+              style={{ transformStyle: 'preserve-3d' }}
             >
-              <div className="mb-7 flex items-center justify-between">
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+
+              <div className="relative mb-7 flex items-center justify-between">
                 <h2 className="text-sm font-semibold tracking-[0.25em] text-cyan-400">
                   RIWAYAT PENDIDIKAN
                 </h2>
-                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-6 group-hover:scale-110">
+                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-12 group-hover:scale-110">
                   🎓
                 </div>
               </div>
@@ -260,24 +296,27 @@ export default function Home() {
               </div>
             </motion.article>
 
-            {/* Pengalaman Magang */}
+            {/* Fungsi pengalaman magang */}
             <motion.article
               id="experience"
               variants={fadeUp}
               transition={{ duration: 0.65, ease: 'easeOut' }}
-              whileHover={{ y: -8 }}
-              className="group rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-xl shadow-black/20 backdrop-blur transition-colors hover:border-cyan-400/40"
+              whileHover={{ y: -12, scale: 1.02, rotateX: 8 }}
+              className="group relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-2xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/50"
+              style={{ transformStyle: 'preserve-3d' }}
             >
-              <div className="mb-7 flex items-center justify-between">
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+
+              <div className="relative mb-7 flex items-center justify-between">
                 <h2 className="text-sm font-semibold tracking-[0.25em] text-cyan-400">
                   PENGALAMAN MAGANG
                 </h2>
-                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-6 group-hover:scale-110">
+                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-12 group-hover:scale-110">
                   💼
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-zinc-800 bg-zinc-950/50 p-5">
+              <div className="relative rounded-3xl border border-zinc-800 bg-zinc-950/50 p-5 shadow-xl shadow-black/20">
                 <div className="text-xl font-bold text-white">Kantor DPRD Kota Medan</div>
                 <div className="mt-2 inline-flex rounded-full bg-cyan-400/10 px-3 py-1 text-sm font-medium text-cyan-300">
                   Magang
@@ -287,7 +326,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-3 text-center">
+              <div className="relative mt-6 grid grid-cols-2 gap-3 text-center">
                 <div className="rounded-2xl border border-zinc-800 bg-zinc-950/40 p-4">
                   <div className="text-2xl font-black text-cyan-300">1</div>
                   <div className="mt-1 text-xs text-zinc-400">Instansi</div>
@@ -299,23 +338,26 @@ export default function Home() {
               </div>
             </motion.article>
 
-            {/* Pengalaman Organisasi */}
+            {/* Fungsi pengalaman organisasi */}
             <motion.article
               variants={fadeUp}
               transition={{ duration: 0.65, ease: 'easeOut' }}
-              whileHover={{ y: -8 }}
-              className="group rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-xl shadow-black/20 backdrop-blur transition-colors hover:border-cyan-400/40"
+              whileHover={{ y: -12, scale: 1.02, rotateX: 8, rotateY: 8 }}
+              className="group relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 shadow-2xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/50"
+              style={{ transformStyle: 'preserve-3d' }}
             >
-              <div className="mb-7 flex items-center justify-between">
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+
+              <div className="relative mb-7 flex items-center justify-between">
                 <h2 className="text-sm font-semibold tracking-[0.25em] text-cyan-400">
                   ORGANISASI
                 </h2>
-                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-6 group-hover:scale-110">
+                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan-400/10 text-cyan-300 transition-transform group-hover:rotate-12 group-hover:scale-110">
                   🤝
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-zinc-800 bg-linear-to-br from-zinc-950/80 to-cyan-400/5 p-5">
+              <div className="relative rounded-3xl border border-zinc-800 bg-linear-to-br from-zinc-950/80 to-cyan-400/5 p-5 shadow-xl shadow-black/20">
                 <div className="text-sm font-medium uppercase tracking-widest text-zinc-400">
                   Jabatan
                 </div>
@@ -328,7 +370,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm leading-relaxed text-cyan-100">
+              <div className="relative mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm leading-relaxed text-cyan-100">
                 Aktif berorganisasi untuk mengembangkan kepemimpinan, komunikasi, koordinasi, dan kerja sama tim.
               </div>
             </motion.article>

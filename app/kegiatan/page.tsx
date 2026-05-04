@@ -239,9 +239,6 @@ export default function KegiatanPage() {
                 <h2 className="text-2xl font-bold tracking-tight md:text-4xl">
                   {monthNames[currentMonth - 1]} {currentYear}
                 </h2>
-                <p className="mt-2 text-sm text-zinc-500">
-                  {loading ? 'Memuat kegiatan...' : `${activities.length} kegiatan tersimpan`}
-                </p>
               </div>
 
               <button
@@ -310,11 +307,15 @@ export default function KegiatanPage() {
                   return (
                     <article
                       key={activity.id}
-                      className="rounded-3xl border border-zinc-800 bg-zinc-950/40 p-5 md:p-6"
+                      className="rounded-3xl border border-zinc-800 bg-zinc-950/50 p-5 shadow-xl shadow-black/20 transition-colors hover:border-cyan-400/30 md:p-6"
                     >
-                      <div className="mb-5">
-                        <h4 className="text-2xl font-bold text-white">{activity.title}</h4>
-                        <p className="mt-2 text-sm font-semibold text-cyan-400">{activity.date}</p>
+                      <div className="mb-5 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5">
+                        <p className="mb-2 text-sm font-semibold text-cyan-400">
+                          {activity.date}
+                        </p>
+                        <h4 className="text-2xl font-bold leading-tight text-white">
+                          {activity.title}
+                        </h4>
                       </div>
 
                       {images.length > 0 && (
@@ -338,9 +339,11 @@ export default function KegiatanPage() {
                         </div>
                       )}
 
-                      <p className="text-sm leading-relaxed text-zinc-300 md:text-base">
-                        {activity.description || 'Deskripsi kegiatan belum diisi.'}
-                      </p>
+                      <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
+                        <p className="text-sm leading-relaxed text-zinc-300 md:text-base">
+                          {activity.description || 'Deskripsi kegiatan belum diisi.'}
+                        </p>
+                      </div>
                     </article>
                   );
                 })}

@@ -89,7 +89,7 @@ export default function ProjectPage() {
     <main className="min-h-screen overflow-hidden bg-zinc-950 text-white">
       <Navbar />
 
-      {/* Background Decoration */}
+      {/* Fungsi background */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <motion.div
           animate={{ x: [0, 70, 0], y: [0, 50, 0], scale: [1, 1.15, 1] }}
@@ -106,7 +106,7 @@ export default function ProjectPage() {
 
       <section className="px-6 pb-24 pt-24 md:pt-28">
         <div className="mx-auto max-w-6xl">
-          {/* Header */}
+          {/* Fungsi header */}
           <motion.div
             initial="hidden"
             animate="show"
@@ -142,7 +142,7 @@ export default function ProjectPage() {
             </motion.p>
           </motion.div>
 
-          {/* Filter */}
+          {/* Fungsi filter */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,25 +164,25 @@ export default function ProjectPage() {
             ))}
           </motion.div>
 
-          {/* Loading State */}
+          {/* Fungsi loading */}
           {loading && (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((item) => (
                 <div
                   key={item}
-                  className="nimate-pulse roer border-zinc-800 bg-zinc-900/70"
+                  className="animate-pulse rounded-4xl border border-zinc-800 bg-zinc-900/70"
                 />
               ))}
             </div>
           )}
 
-          {/* Project Grid */}
+          {/* Fungsi daftar project */}
           {!loading && filteredProjects.length > 0 && (
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="show"
-              className="grid items-stretch gap-8 md:grid-cols-2 lg:grid-cols-3"
+              className="grid items-stretch gap-8 perspective-distant md:grid-cols-2 lg:grid-cols-3"
             >
               {filteredProjects.map((project) => {
                 const techList = getTechList(project.tech);
@@ -193,10 +193,17 @@ export default function ProjectPage() {
                     key={project.id}
                     variants={fadeUp}
                     transition={{ duration: 0.55, ease: 'easeOut' }}
-                    whileHover={{ y: -8 }}
-                    className="group flex h-full min-h-147.5 flex-col ov4xl border00 bg-zinc-900/80 shadow-xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/40"
+                    whileHover={{
+                      y: -10,
+                      scale: 1.015,
+                      rotateX: 4,
+                    }}
+                    className="group relative flex h-full min-h-147.5 flex-col overflow-hidden rounded-4xl border border-zinc-800 bg-zinc-900/80 shadow-xl shadow-black/25 backdrop-blur transition-colors hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-500/10"
+                    style={{ transformStyle: 'preserve-3d' }}
                   >
-                    {/* Image */}
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-cyan-400/10 via-transparent to-blue-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                    {/* Fungsi gambar */}
                     <div className="relative h-56 w-full overflow-hidden bg-zinc-900">
                       <img
                         src={project.image}
@@ -210,13 +217,13 @@ export default function ProjectPage() {
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="flex flex-1 flex-col p-6">
-                      <h3 className="mb-4 line-clamp-2 min-h-16 text-2xl font-bold leading-tight text-white trans group-hover:text-cyan-300">
+                    {/* Fungsi isi card */}
+                    <div className="relative flex flex-1 flex-col p-6">
+                      <h3 className="mb-4 line-clamp-2 min-h-16 text-2xl font-bold leading-tight text-white transition-colors group-hover:text-cyan-300">
                         {project.title}
                       </h3>
 
-                      {/* Description */}
+                      {/* Fungsi deskripsi */}
                       <div className="mb-3 h-26 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/40 p-4">
                         <p
                           className={`text-sm leading-relaxed text-zinc-400 ${
@@ -234,7 +241,7 @@ export default function ProjectPage() {
                         {isExpanded ? 'Tutup' : 'Lihat selengkapnya'}
                       </button>
 
-                      {/* Tech */}
+                      {/* Fungsi tech */}
                       <div className="mb-6 flex min-h-18 flex-wrap content-start gap-2">
                         {techList.length > 0 ? (
                           techList.slice(0, 6).map((tech, i) => (
@@ -252,7 +259,7 @@ export default function ProjectPage() {
                         )}
                       </div>
 
-                      {/* Button */}
+                      {/* Fungsi tombol */}
                       <a
                         href={project.github || '#'}
                         target={project.github ? '_blank' : undefined}
@@ -272,13 +279,13 @@ export default function ProjectPage() {
             </motion.div>
           )}
 
-          {/* Empty State */}
+          {/* Fungsi kosong */}
           {!loading && filteredProjects.length === 0 && (
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="rounded-4xl border border-zinc-800 bg-zinc-900/70xt-center shadow-xl shadow-black/20 backdrop-blur"
+              className="rounded-4xl border border-zinc-800 bg-zinc-900/70 p-12 text-center shadow-xl shadow-black/20 backdrop-blur"
             >
               <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-3xl bg-cyan-400/10 text-3xl">
                 📁
